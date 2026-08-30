@@ -10,9 +10,9 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace Aiub_Lost___Found_Management_System
 {
-    public partial class Form9 : Form
+    public partial class ClaimItem : Form
     {
-        public Form9()
+        public ClaimItem()
         {
             InitializeComponent();
         }
@@ -60,11 +60,18 @@ namespace Aiub_Lost___Found_Management_System
                 this.Hide();
 
             }
-            }
-        
+        }
+
         private void cid_TextChanged(object sender, EventArgs e)
         {
 
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Dashboard d = new Dashboard();
+            d.Show();
+            this.Hide();
         }
     }
 }

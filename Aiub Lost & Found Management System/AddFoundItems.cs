@@ -1,10 +1,20 @@
-﻿namespace Aiub_Lost___Found_Management_System
+﻿using System.Data.SqlClient;
+using System.Diagnostics;
+
+namespace Aiub_Lost___Found_Management_System
 {
-    partial class addfounditem
+    partial class AddFoundItems : Form
     {
+
+        public AddFoundItems()
+        {
+            InitializeComponent();
+        }
         /// <summary>
         /// Required designer variable.
         /// </summary>
+        /// 
+
         private System.ComponentModel.IContainer components = null;
 
         /// <summary>
@@ -29,8 +39,8 @@
         private void InitializeComponent()
         {
             label1 = new Label();
-            label2 = new Label();
-            label3 = new Label();
+            fitemname = new Label();
+            catg = new Label();
             label4 = new Label();
             label5 = new Label();
             label6 = new Label();
@@ -60,25 +70,26 @@
             label1.TabIndex = 0;
             label1.Text = "Report Found Item";
             // 
-            // label2
+            // fitemname
             // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            label2.Location = new Point(71, 72);
-            label2.Name = "label2";
-            label2.Size = new Size(119, 25);
-            label2.TabIndex = 1;
-            label2.Text = "Item Name :";
+            fitemname.AutoSize = true;
+            fitemname.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            fitemname.Location = new Point(71, 72);
+            fitemname.Name = "fitemname";
+            fitemname.Size = new Size(119, 25);
+            fitemname.TabIndex = 1;
+            fitemname.Text = "Item Name :";
             // 
-            // label3
+            // catg
             // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-            label3.Location = new Point(86, 119);
-            label3.Name = "label3";
-            label3.Size = new Size(104, 25);
-            label3.TabIndex = 2;
-            label3.Text = "Category :";
+            catg.AutoSize = true;
+            catg.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
+            catg.Location = new Point(86, 119);
+            catg.Name = "catg";
+            catg.Size = new Size(104, 25);
+            catg.TabIndex = 2;
+            catg.Text = "Category :";
+            catg.Click += catg_Click;
             // 
             // label4
             // 
@@ -89,6 +100,7 @@
             label4.Size = new Size(111, 25);
             label4.TabIndex = 3;
             label4.Text = "Condition :";
+            label4.Click += label4_Click;
             // 
             // label5
             // 
@@ -122,7 +134,7 @@
             Submitfound.TabIndex = 8;
             Submitfound.Text = "Submit";
             Submitfound.UseVisualStyleBackColor = false;
-            Submitfound.Click += button1_Click;
+            Submitfound.Click += Submitfound_Click;
             // 
             // clearfound
             // 
@@ -134,6 +146,7 @@
             clearfound.TabIndex = 9;
             clearfound.Text = "Clear";
             clearfound.UseVisualStyleBackColor = false;
+            clearfound.Click += clearfound_Click;
             // 
             // itemname
             // 
@@ -177,6 +190,7 @@
             category.Name = "category";
             category.Size = new Size(470, 28);
             category.TabIndex = 14;
+            category.SelectedIndexChanged += category_SelectedIndexChanged;
             // 
             // location
             // 
@@ -240,7 +254,7 @@
             button1.TabIndex = 21;
             button1.Text = "Back";
             button1.UseVisualStyleBackColor = false;
-            button1.Click += button1_Click_1;
+            button1.Click += button1_Click;
             // 
             // panel1
             // 
@@ -251,7 +265,7 @@
             panel1.Size = new Size(800, 13);
             panel1.TabIndex = 22;
             // 
-            // addfounditem
+            // AddFoundItems
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -274,10 +288,10 @@
             Controls.Add(label6);
             Controls.Add(label5);
             Controls.Add(label4);
-            Controls.Add(label3);
-            Controls.Add(label2);
+            Controls.Add(catg);
+            Controls.Add(fitemname);
             Controls.Add(label1);
-            Name = "addfounditem";
+            Name = "AddFoundItems";
             Text = "addfounditem";
             ResumeLayout(false);
             PerformLayout();
@@ -286,8 +300,8 @@
         #endregion
 
         private Label label1;
-        private Label label2;
-        private Label label3;
+        private Label fitemname;
+        private Label catg;
         private Label label4;
         private Label label5;
         private Label label6;
@@ -305,5 +319,72 @@
         private CheckBox checkBox4;
         private Button button1;
         private Panel panel1;
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Dashboard d = new Dashboard();
+            d.Show();
+            this.Hide();
+        }
+
+        private void category_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void catg_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void clearfound_Click(object sender, EventArgs e)
+        {
+            itemname.Clear();
+            category.SelectedIndex = -1;
+
+            location.Clear();
+
+            email.Clear();
+            description.Clear();
+        }
+
+        private void Submitfound_Click(object sender, EventArgs e)
+        {
+            SqlConnection sqlcon = new SqlConnection(
+               @"Data Source=.\SQLEXPRESS;Initial Catalog=LOSTANDFOUNDB;Integrated Security=True");
+
+            sqlcon.Open();
+            string c = "";
+            if (checkBox1.Checked)
+                c = "Good";
+            else if (checkBox2.Checked)
+                c = "Damaged";
+            else if (checkBox3.Checked)
+                c = "Slightly Damaged";
+            else if (checkBox4.Checked)
+                c = "Unusable";
+
+            string query = @"insert into Founditems
+            values('" + itemname.Text + "','" +
+            category.Text + "','" +
+            location.Text + "','" +
+            c + "','"+
+           email.Text + "','" +
+            description.Text + "','Lost')";
+            SqlCommand cmd = new SqlCommand(query, sqlcon);
+
+            int count = cmd.ExecuteNonQuery();
+
+            sqlcon.Close();
+            MessageBox.Show("Lost Item Added Successfully");
+            Dashboard d = new Dashboard();
+            d.Show();
+            this.Hide();
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

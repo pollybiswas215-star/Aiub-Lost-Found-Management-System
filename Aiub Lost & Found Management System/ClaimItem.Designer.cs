@@ -1,6 +1,6 @@
 ﻿namespace Aiub_Lost___Found_Management_System
 {
-    partial class Form9
+    partial class ClaimItem
     {
         /// <summary>
         /// Required designer variable.
@@ -37,6 +37,7 @@
             claimsubmit = new Button();
             label4 = new Label();
             label5 = new Label();
+            button1 = new Button();
             SuspendLayout();
             // 
             // cid
@@ -104,7 +105,7 @@
             claimsubmit.Location = new Point(379, 485);
             claimsubmit.Margin = new Padding(4);
             claimsubmit.Name = "claimsubmit";
-            claimsubmit.Size = new Size(507, 56);
+            claimsubmit.Size = new Size(312, 56);
             claimsubmit.TabIndex = 11;
             claimsubmit.Text = "Submit";
             claimsubmit.UseVisualStyleBackColor = true;
@@ -130,11 +131,23 @@
             label5.TabIndex = 13;
             label5.Text = "Claim Your Found items";
             // 
-            // Form9
+            // button1
+            // 
+            button1.Location = new Point(728, 490);
+            button1.Name = "button1";
+            button1.Size = new Size(206, 51);
+            button1.TabIndex = 14;
+            button1.Text = "Back";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
+            // ClaimItem
             // 
             AutoScaleDimensions = new SizeF(11F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = SystemColors.InactiveCaption;
             ClientSize = new Size(1129, 563);
+            Controls.Add(button1);
             Controls.Add(label5);
             Controls.Add(label4);
             Controls.Add(claimsubmit);
@@ -146,7 +159,7 @@
             Controls.Add(cid);
             Font = new Font("Segoe UI", 11F, FontStyle.Bold);
             Margin = new Padding(4);
-            Name = "Form9";
+            Name = "ClaimItem";
             Text = "Form9";
             ResumeLayout(false);
             PerformLayout();
@@ -163,5 +176,6 @@
         private Button claimsubmit;
         private Label label4;
         private Label label5;
+        private Button button1;
     }
 }

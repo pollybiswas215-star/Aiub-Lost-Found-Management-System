@@ -1,6 +1,6 @@
 ﻿namespace Aiub_Lost___Found_Management_System
 {
-    partial class Form6
+    partial class ViewLostItems
     {
         /// <summary>
         /// Required designer variable.

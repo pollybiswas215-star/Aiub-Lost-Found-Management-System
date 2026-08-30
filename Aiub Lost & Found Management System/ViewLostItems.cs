@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace Aiub_Lost___Found_Management_System
 {
-    public partial class Form6 : Form
+    public partial class ViewLostItems : Form
     {
-        public Form6()
+        public ViewLostItems()
         {
             InitializeComponent();
         }
@@ -50,6 +50,8 @@ namespace Aiub_Lost___Found_Management_System
             if (count > 0)
             {
                 MessageBox.Show("Updated successfully!");
+                Dashboard d = new Dashboard();
+                d.Show();
                 this.Hide();
 
             }

@@ -30,7 +30,7 @@ namespace Aiub_Lost___Found_Management_System
 
         private void btnfound_Click(object sender, EventArgs e)
         {
-            addfounditem f = new addfounditem();
+            AddFoundItems f = new AddFoundItems();
             f.Show();
             this.Hide();
 
@@ -40,21 +40,21 @@ namespace Aiub_Lost___Found_Management_System
 
         {
 
-            Form6 f = new Form6();
+            ViewLostItems f = new ViewLostItems();
             f.Show();
             this.Hide();
         }
 
         private void btnviewfound_Click(object sender, EventArgs e)
         {
-            Form8 f = new Form8();
+            ViewFoundItems f = new ViewFoundItems();
             f.Show();
             this.Hide();
         }
 
         private void btnclaim_Click(object sender, EventArgs e)
         {
-            Form9 f = new Form9();
+            ClaimItem f = new ClaimItem();
             f.Show();
             this.Hide();
 
@@ -74,7 +74,7 @@ namespace Aiub_Lost___Found_Management_System
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Form1 f = new Form1();
+            Login f = new Login();
             f.Show();
             this.Hide();
         }
@@ -94,34 +94,27 @@ namespace Aiub_Lost___Found_Management_System
 
             string query = "select Count(*) from Lostitems";
             SqlCommand cmd = new SqlCommand(query, sqlcon);
-            SqlDataReader r = cmd.ExecuteReader();
-            int count = 0;
-            while (r.Read())
-            {
-                count++;
-            }
-            numberlost.Text = count.ToString();
-            r.Close();
+            int loscount = (int)cmd.ExecuteScalar();
+            numberlost.Text = loscount.ToString();
             sqlcon.Close();
+
+
             SqlConnection sqlcon1 = new SqlConnection(
-               @"Data Source=.\SQLEXPRESS;Initial Catalog=LOSTANDFOUNDB;Integrated Security=True");
+                @"Data Source=.\SQLEXPRESS;Initial Catalog=LOSTANDFOUNDB;Integrated Security=True");
 
-            sqlcon.Open();
-
+            sqlcon1.Open();
 
             string query1 = "select Count(*) from Founditems";
             SqlCommand cmdf = new SqlCommand(query, sqlcon1);
-            SqlDataReader r1 = cmd.ExecuteReader();
-            int countf = 0;
-            while (r1.Read())
-            {
-                countf++;
-            }
-            numberfound.Text = countf.ToString();
-           
-            r1.Close();
+            int foundcount = (int)cmdf.ExecuteScalar();
+            numberfound.Text = foundcount.ToString();
             sqlcon1.Close();
+
         }
 
+        private void numberlost_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -30,50 +30,58 @@ namespace Aiub_Lost___Found_Management_System
         }
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (comboBox1.SelectedItem == null) return;
+         
 
-            string option = comboBox1.SelectedItem.ToString();
-            SqlConnection sqlcon = new SqlConnection(
-                           @"Data Source=.\SQLEXPRESS;Initial Catalog=LOSTANDFOUNDB;Integrated Security=True");
-            sqlcon.Open();
-
-
-            if (option== "Approved")
-            {
-                String query = "UPDATE Founditems SET Status = 'Approved'";
-                SqlCommand cmd = new SqlCommand(query, sqlcon);
-                cmd.ExecuteNonQuery();
-                MessageBox.Show("Approved!");
-            }
-            else if (option == "Rejected")
-            {
-                String query = "UPDATE Founditems SET Status = 'Rejected'";
-                SqlCommand cmd = new SqlCommand(query, sqlcon);
-                cmd.ExecuteNonQuery();
-                MessageBox.Show("Claim Rejected! ");
-            }
-            else if (option == "Delete" )
-            {
-
-
-                String query = "DELETE FROM Founditems";
-                SqlCommand cmd = new SqlCommand(query, sqlcon);
-                cmd.ExecuteNonQuery();
-                MessageBox.Show("Item deleted successfully from the system.");
-
-            }
-            SqlDataAdapter a = new SqlDataAdapter("SELECT * FROM Founditems WHERE Status='Pending'", sqlcon);
-            DataTable d = new DataTable();
-            a.Fill(d);
-            dataGridView1.DataSource = d;
-
-            sqlcon.Close();
         }
 
-        
+
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
         }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            this.Hide();
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+            if (comboBox1.SelectedItem == null) return;
+            string option = comboBox1.SelectedItem.ToString();
+            SqlConnection sqlcon = new SqlConnection(
+                @"Data Source=.\SQLEXPRESS;Initial Catalog=LOSTANDFOUNDB;Integrated Security=True");
+
+            sqlcon.Open();
+            
+            if (option=="Approved")
+            {
+                string query = "UPDATE Founditems SET Status = 'Approved'";
+
+                SqlCommand cmd = new SqlCommand(query, sqlcon);
+                cmd.ExecuteNonQuery();
+
+                MessageBox.Show("Approved!");
+            }
+            else if (option=="Rejected")
+            {
+                string query = "UPDATE Founditems SET Status = 'Rejected'";
+
+                SqlCommand cmd = new SqlCommand(query, sqlcon);
+                cmd.ExecuteNonQuery();
+
+                MessageBox.Show("Rejected!");
+            }
+
+
+            sqlcon.Close();
+        }
+        }
     }
-}
+

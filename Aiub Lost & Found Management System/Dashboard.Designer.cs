@@ -365,6 +365,7 @@
             numberlost.Size = new Size(150, 37);
             numberlost.TabIndex = 15;
             numberlost.Text = "Lost Items";
+            numberlost.Click += numberlost_Click;
             // 
             // numberfound
             // 
